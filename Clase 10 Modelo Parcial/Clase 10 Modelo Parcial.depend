@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1525351182 source:c:\users\alumno\desktop\clase 10 modelo parcial\funciones.c
+1525355205 source:c:\users\alumno\desktop\clase 10 modelo parcial\funciones.c
 
-1525351440 source:c:\users\alumno\desktop\clase 10 modelo parcial\main.c
+1525359890 source:c:\users\alumno\desktop\clase 10 modelo parcial\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 
