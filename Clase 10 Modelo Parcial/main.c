@@ -11,6 +11,7 @@ typedef struct
 {
     char nombre[50];
     int idUsuario;
+    int edad;
     float calificacion;
 
     int estado;
@@ -21,13 +22,19 @@ void hardcodearUsuarios(eUsuario[],int);
 void mostrarUsuarios(eUsuario[],int);
 
 int eUsuario_init(eUsuario[],int);
+
 int eUsuario_alta(eUsuario[] ,int);
+int eUsuario_modificacion(eUsuario[] ,int);
+
 int eUsuario_buscarLugarLibre(eUsuario listado[],int);
 int eUsuario_siguienteId(eUsuario[] ,int);
+
+
 
 int main()
 {
     eUsuario usuario[TamU];
+    int auxUser;
 
     char seguir='s';
     int opcion=0;
@@ -56,10 +63,16 @@ int main()
         {
             case 1:
                 system("cls");
-                //hardcodearUsuarios(usuario,TamU);
-                eUsuario_alta(usuario,TamU);
+                hardcodearUsuarios(usuario,TamU);
+                //auxUser = eUsuario_alta(usuario,TamU);
+                system("pause");
+                system("cls");
                 break;
             case 2:
+                system("cls");
+                eUsuario_modificacion(usuario,TamU);
+                system("pause");
+                system("cls");
                 break;
             case 3:
                 break;
@@ -78,6 +91,8 @@ int main()
             case 10:
                 system("cls");
                 mostrarUsuarios(usuario,TamU);
+                system("pause");
+                system("cls");
                 break;
             case 11:
                 seguir = 'n';
@@ -94,8 +109,8 @@ void hardcodearUsuarios(eUsuario usuario[],int tam)
 
     char nombre[][50]={"Maria","Pedro","Marta","Gabriel","Oscar"};
     int id[]={100,101,102,103,104};
+    int edad[]={22,34,18,31,45};
     float cal[]={7,8,3,4,9};
-    int estado = OCUPADO;
 
     for(i=0;i<tam;i++)
     {
@@ -103,17 +118,21 @@ void hardcodearUsuarios(eUsuario usuario[],int tam)
         usuario[i].idUsuario=id[i];
         usuario[i].calificacion=cal[i];
         usuario[i].estado = OCUPADO;
+        usuario[i].edad = edad[i];
     }
 }
 
 void mostrarUsuarios(eUsuario usuario[],int tam)
 {
     int i;
+
+    printf("ID USUARIO\tNOMBRE\t\tEDAD\n\n");
+
     for(i=0;i<tam;i++)
     {
         if(usuario[i].estado == 0)
         {
-            printf("%d -- %s -- %.2f\n",usuario[i].idUsuario,usuario[i].nombre,usuario[i].calificacion);
+            printf("%d%19s%13d\n",usuario[i].idUsuario,usuario[i].nombre,usuario[i].edad);
         }
     }
 }
@@ -132,10 +151,12 @@ int eUsuario_alta(eUsuario listado[],int limite)
         if(indice >= 0)
         {
             retorno = -3;
-            id = eUsuario_siguienteId(listado,limite); //GENERA UNA ID
+            id = eUsuario_siguienteId(listado,limite);//GENERA UNA ID
+
             //if(!getValidString("Nombre?","Error","Overflow", nombre,50,2))
-            /*{
+
             retorno = 0;
+            /*{
             strcpy(listado[indice].nombre,"juan ");
             listado[indice].idUsuario = id;
             listado[indice].estado = OCUPADO;
@@ -145,7 +166,10 @@ int eUsuario_alta(eUsuario listado[],int limite)
             gets(listado[indice].nombre);
 
             printf("Ingrese edad:");
-            scanf("%d",&listado[indice].)
+            scanf("%d",&listado[indice].edad);
+
+            listado[indice].idUsuario = id;
+            listado[indice].estado = OCUPADO;
         }
     }
     return retorno;
@@ -204,5 +228,65 @@ int eUsuario_init(eUsuario listado[],int limite)
             listado[i].idUsuario= 0;
         }
     }
+    return retorno;
+}
+
+int eUsuario_modificacion(eUsuario listado[] ,int limite)
+{
+    int retorno = -1;
+    int aux;
+    int i;
+    int opcion;
+
+    char seguir = 's';
+
+    if(limite > 0 && listado != NULL)
+    {
+        retorno = -2; //Devuelve 0 si lograr pedir un ID a modificar pero no puede modificar nada
+
+        mostrarUsuarios(listado, limite);
+
+        printf("Ingrese ID de usuario a modificar:");
+        scanf("%d",&aux);
+
+        for(i=0;i<limite;i++)
+        {
+            if(listado[i].idUsuario == aux)
+            {
+                while(seguir == 's')
+                {
+                    printf("Que desea modificar?\n\n");
+                    printf("1-Nombre\n");
+                    printf("2-Edad\n");
+
+                    scanf("%d",&opcion);
+
+                    switch(opcion)
+                    {
+                        case 1:
+                            printf("Ingrese nuevo nombre:");
+                            fflush(stdin);
+                            gets(listado[i].nombre);
+                            retorno = 0;
+                            seguir = 'n';
+                            break;
+                        case 2:
+                            printf("Ingrese nueva edad:");
+                            scanf("%d",listado[i].edad);
+                            retorno = 0;
+                            seguir = 'n';
+                            break;
+                    }
+
+                }
+
+
+                break;
+            }
+        }
+
+    }
+
+
     return retorno;
 }
