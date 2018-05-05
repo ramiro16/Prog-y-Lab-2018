@@ -37,6 +37,7 @@ void hardcodearProductos(eProducto[],int);
 
 void mostrarUsuarios(eUsuario[],int);
 void mostrarProductos(eProducto[],int);
+void mostrarProductosxUsuario(eUsuario[],int,eProducto[],int);
 
 void eUsuario_mostrarUno(eUsuario);
 
@@ -48,15 +49,13 @@ int eUsuario_modificacion(eUsuario[],int);
 int eUsuario_baja(eUsuario[] ,int);
 
 int eProducto_alta(eProducto[],int,eUsuario[],int);
+int eProducto_modificacion(eProducto[],int,eUsuario[],int);
 
 int eUsuario_buscarLugarLibre(eUsuario[],int);
 int eUsuario_siguienteId(eUsuario[] ,int);
 
 int eProducto_buscarLugarLibre(eProducto[],int);
 int eProducto_siguienteId(eProducto[],int);
-
-
-
 
 
 int main()
@@ -113,8 +112,7 @@ int main()
             case 4:
                 system("cls");
                 hardcodearProductos(producto,TamP);
-
-                eProducto_alta(producto,TamP,usuario,TamU);
+                //eProducto_alta(producto,TamP,usuario,TamU);
                 system("pause");
                 system("cls");
                 break;
@@ -125,6 +123,11 @@ int main()
             case 7:
                 break;
             case 8:
+                system("cls");
+                mostrarProductosxUsuario(usuario,TamU,producto,TamP);
+                printf("\n");
+                system("pause");
+                system("cls");
                 break;
             case 9:
                 system("cls");
@@ -522,5 +525,73 @@ int eProducto_siguienteId(eProducto listado[],int limite)
     }
 
     return retorno+1;
-
 }
+
+eProducto_modificacion(eProducto listadoP[],int limiteP, eUsuario listadoU[],int limiteU)
+{
+    int retorno = -1;
+    int aux;
+    int i;
+
+    if(limiteU > 0 && limiteP > 0 && listadoP != NULL && listadoU != NULL)
+    {
+        retorno = -2;
+
+        mostrarUsuarios(listadoU, limiteU);
+
+        printf("Ingrese ID de usuario que modificara sus productos:");
+        scanf("%d",&aux);
+
+        for(i=0;i<limiteU;i++)
+        {
+            if(listadoU[i].estado == aux)
+            {
+                mostrarProductosxUsuario(listadoU,limiteU,listadoP,limiteP);
+
+                printf("Ingrese ID de producto que desea modificar:");
+                scanf("%d",&aux);
+
+
+            }
+        }
+
+    }
+}
+
+void mostrarProductosxUsuario(eUsuario listadoU[],int limiteU,eProducto listadoP[],int limiteP)
+{
+    int i,j;
+    int aux;
+
+    mostrarUsuarios(listadoU,limiteU);
+
+    printf("\nIngrese ID de usuario para ver sus publicaciones:");
+    scanf("%d",&aux);
+
+    system("cls");
+
+    for(i=0;i<limiteU;i++)
+    {
+        if(listadoU[i].estado == OCUPADO && listadoU[i].idUsuario == aux)
+        {
+            printf("Publicaciones del usuario %s con el ID %d\n\n",listadoU[i].nombre,listadoU[i].idUsuario);
+            printf("\nID PRODUCTO\tNOMBRE\t\tPRECIO\t\tSTOCK\n");
+
+            for(j=0;j<limiteP;j++)
+            {
+                if(listadoU[i].idUsuario == listadoP[j].idUsuario)
+                {
+                    printf("%d\t%15s\t%14.2f\t%10d\n",listadoP[j].idProducto,listadoP[j].nombre,listadoP[j].precio,listadoP[j].stock);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
