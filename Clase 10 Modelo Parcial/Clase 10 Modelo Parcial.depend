@@ -8,8 +8,9 @@
 
 1525382116 source:c:\users\rama\desktop\prog-y-lab-2018.git\clase 10 modelo parcial\funciones.c
 
-1525385652 source:c:\users\rama\desktop\prog-y-lab-2018.git\clase 10 modelo parcial\main.c
+1525482428 source:c:\users\rama\desktop\prog-y-lab-2018.git\clase 10 modelo parcial\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	<conio.h>
 
