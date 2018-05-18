@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1526650437 source:d:\ramiro tapia\tp2conpunteros\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<string.h>
+	<ctype.h>
+	"funciones.h"
+
+1526652650 d:\ramiro tapia\tp2conpunteros\funciones.h
+
