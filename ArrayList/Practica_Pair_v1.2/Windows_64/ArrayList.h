@@ -19,9 +19,9 @@
 #ifndef __ARRAYLIST
 #define __ARRAYLIST
 struct ArrayList{
-    int size;
-    void **pElements;
-    int reservedSize;
+    int size;        //cuantos tengo guardados
+    void **pElements;//Lista de elementos del AL. Es VOID porque puedo guardar cualquier tipo de dato
+    int reservedSize;//capacidad total del AL
 
     int     (*add)();
     int     (*len)();
@@ -70,7 +70,7 @@ int al_add(ArrayList* pList,void* pElement);
 int al_deleteArrayList(ArrayList* pList);
 
 
-/** \brief  Delete arrayList
+/** \brief   arrayList
  * \param pList ArrayList* Pointer to arrayList
  * \return int Return length of array or (-1) if Error [pList is NULL pointer]
  *
