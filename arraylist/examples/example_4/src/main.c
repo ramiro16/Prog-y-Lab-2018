@@ -28,18 +28,18 @@
 
 int main(void)
 {
-    startTesting(1);
-    startTesting(2);
-    startTesting(3);
-    startTesting(4);
-    startTesting(5);
-          startTesting(6);
-        startTesting(7);
-        startTesting(8);
+//    startTesting(1);
+//    startTesting(2);
+//    startTesting(3);
+//    startTesting(4);
+//    startTesting(5);
+//        startTesting(6);
+//        startTesting(7);
+//        startTesting(8);
 //        startTesting(9);
 //        startTesting(10);
 //        startTesting(11);
-//        startTesting(12);
+        startTesting(12);
 //        startTesting(13);
 //        startTesting(14);
 //        startTesting(15);
@@ -55,6 +55,8 @@ add - agrega un elemento al final del array
 pop - saco un elemento y lo devuelvo a otro lado, lo remueve(puede llamar al remove)
 push - abro espacio entre elementos para colocar otro (puede llamar al add)
 remove - elimina un elemento del AL
+
+expand- desde un indice corre
 
 */
 

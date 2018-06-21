@@ -261,6 +261,19 @@ int al_remove(ArrayList* this,int index)
 int al_clear(ArrayList* this)
 {
     int returnAux = -1;
+    int i;
+
+    if( this != NULL)
+    {
+        for(i=0; i < this->size ; i++)
+        {
+            free(this->pElements+i);
+        }
+
+        this->size=0;
+
+        returnAux = 0;
+    }
 
     return returnAux;
 }
@@ -292,6 +305,29 @@ ArrayList* al_clone(ArrayList* this)
 int al_push(ArrayList* this, int index, void* pElement)
 {
     int returnAux = -1;
+    int flag = 0;
+
+    if(this != NULL && pElement != NULL)
+    {
+        if(index >= 0 && index <= this->size)
+        {
+            if(this->len(this) == this->reservedSize)
+            {
+                flag = resizeUp(this);
+            }
+            if(flag == 0)
+            {
+                flag=expand(this,index);
+                if(flag == 0)
+                {
+                    this->pElements[index] = pElement;
+                    this->size++;
+                    returnAux = 0;
+                }
+            }
+
+        }
+    }
 
     return returnAux;
 }
@@ -395,6 +431,20 @@ int al_sort(ArrayList* this, int (*pFunc)(void* ,void*), int order)
 int resizeUp(ArrayList* this)
 {
     int returnAux = -1;
+    void* auxLista;
+
+    if(this!=NULL)
+    {
+        auxLista= realloc(this->pElements,sizeof(void*)*(this->size+AL_INCREMENT));
+        if(auxLista!=NULL)
+        {
+            this->pElements=auxLista;
+            this->reservedSize=this->size+AL_INCREMENT;
+            returnAux=0;
+        }
+    }
+
+    return returnAux;
 
     return returnAux;
 
@@ -409,6 +459,21 @@ int resizeUp(ArrayList* this)
 int expand(ArrayList* this,int index)
 {
     int returnAux = -1;
+    int i;
+
+    if(this != NULL)
+    {
+        if(index >= 0 && index <= this->size)
+        {
+            for(i=this->size; i > index ; i--)
+            {
+                this->pElements[i] = this->pElements[i-1];
+            }
+
+            returnAux = 0;
+        }
+
+    }
 
     return returnAux;
 }
@@ -422,6 +487,22 @@ int expand(ArrayList* this,int index)
 int contract(ArrayList* this,int index)
 {
     int returnAux = -1;
+    int i;
+
+    if(this != NULL)
+    {
+        if(index >= 0 && index < this->size)
+        {
+            for(i=index; i<this->size-1 ; i++)
+            {
+                this->pElements[i] = this->pElements[i+1];
+            }
+
+            this->size--;
+
+            returnAux = 0;
+        }
+    }
 
     return returnAux;
 }
